@@ -13,7 +13,7 @@ For more details please visit our docs.
 https://app.gitbook.com/@glynn-quelch/s/pinkcrab/
 
 ## Version ##
-**Release 0.1.1**
+**Release 0.2.1**
 
 ## Why? ##
 Throughout a few of our modules we need to handle HTTP requests and responses. The WP_HTTP_* classes are great, but PS7 complient libraries have a lot more to offer.
