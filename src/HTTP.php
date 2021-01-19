@@ -34,6 +34,7 @@ use InvalidArgumentException;
 use Psr\Http\Message\UriInterface;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Nyholm\Psr7Server\ServerRequestCreator;
 use Psr\Http\Message\ServerRequestInterface;
@@ -75,8 +76,8 @@ class HTTP {
 		array $headers = array(),
 		$body = null,
 		string $version = '1.1'
-	): void {
-		new Request( $method, $uri, $headers, $body, $version );
+	): RequestInterface {
+		return new Request( $method, $uri, $headers, $body, $version );
 	}
 
 	/**
