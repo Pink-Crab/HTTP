@@ -13,7 +13,7 @@ For more details please visit our docs.
 https://app.gitbook.com/@glynn-quelch/s/pinkcrab/
 
 ## Version ##
-**Release 0.2.1**
+**Release 0.2.2**
 
 ## Why? ##
 Throughout a few of our modules we need to handle HTTP requests and responses. The WP_HTTP_* classes are great, but PS7 complient libraries have a lot more to offer.
@@ -103,5 +103,6 @@ $ composer analyse
 http://www.opensource.org/licenses/mit-license.html  
 
 ## Change Log ##
+* 0.2.2 - Added the helper for wrapping data as json in Stream
 * 0.2.1 - Removed die() from end of Emit calls and just reutrned back void. Die to happen at other end
 * 0.2.0 - Moved from Guzzle being injected in cosntructor to using cutom HTTP (pink crab). Plug move to composer format.
