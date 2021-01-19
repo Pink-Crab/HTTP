@@ -7,6 +7,7 @@
  */
 
 use WP_UnitTestCase;
+use PinkCrab\HTTP\HTTP;
 
 class Test_Test extends WP_UnitTestCase {
 

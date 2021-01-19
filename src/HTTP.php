@@ -1,8 +1,11 @@
 <?php
 
 declare(strict_types=1);
+
 /**
- * An abstract class for resitering custom post types.
+ * Wrapper around Nyholm\Psr7 library with a few helper methods and a basic emitter.
+ *
+ * For use in WordPress during ajax calls.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -18,10 +21,22 @@ declare(strict_types=1);
  *
  * @author Glynn Quelch <glynn.quelch@gmail.com>
  * @license http://www.opensource.org/licenses/mit-license.html  MIT License
- * @package PinkCrab\Registerables
+ * @package PinkCrab\HTTP
  */
 
 namespace PinkCrab\HTTP;
+
+use RuntimeException;
+use WP_HTTP_Response;
+use Nyholm\Psr7\Request;
+use Nyholm\Psr7\Response;
+use InvalidArgumentException;
+use Psr\Http\Message\UriInterface;
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Psr\Http\Message\StreamInterface;
+use Psr\Http\Message\ResponseInterface;
+use Nyholm\Psr7Server\ServerRequestCreator;
+use Psr\Http\Message\ServerRequestInterface;
 
 class HTTP {
 
@@ -50,7 +65,7 @@ class HTTP {
 	 * @uses Nyholm\Psr7::Request()
 	 * @param string $method HTTP method
 	 * @param string|UriInterface $uri URI
-	 * @param array $headers Request headers
+	 * @param array<string, string> $headers Request headers
 	 * @param string|resource|StreamInterface|null $body Request body
 	 * @param string $version Protocol version
 	 */
@@ -60,16 +75,16 @@ class HTTP {
 		array $headers = array(),
 		$body = null,
 		string $version = '1.1'
-	) {
-		return new Request( $method, $uri, $headers, $body, $version );
+	): void {
+		new Request( $method, $uri, $headers, $body, $version );
 	}
 
 	/**
 	 * Returns a PS7 Response object.
 	 *
 	 * @param int $status
-	 * @param array $headers
-	 * @param string|resource|StreamInterface|null $body
+	 * @param array<string, string> $headers
+	 * @param array<string, string>|string|resource|StreamInterface|null $body
 	 * @param string $version
 	 * @param string $reason
 	 * @return ResponseInterface
@@ -86,16 +101,17 @@ class HTTP {
 			$body = wp_json_encode( $body );
 		}
 
-		return new Response( $status, $headers, $body, $version, $reason );
+		// If body is false, pass as null. @phpstan
+		return new Response( $status, $headers, $body ?: null, $version, $reason );
 	}
 
 	/**
 	 * Returns a WP_Rest_Response
 	 *
 	 * @param int $status
-	 * @param array $headers
+	 * @param array<string, string> $headers
 	 * @param mixed $data
-	 * @return WP_REST_Response
+	 * @return WP_HTTP_Response
 	 */
 	public function wp_response(
 		$data = null,
@@ -108,7 +124,7 @@ class HTTP {
 	/**
 	 * Emits either a PS7 or WP_HTTP Response.
 	 *
-	 * @param ResponseInterface|WP_HTTP_Response $response
+	 * @param ResponseInterface|WP_HTTP_Response|object $response
 	 * @return void
 	 * @throws InvalidArgumentException
 	 */
@@ -191,8 +207,8 @@ class HTTP {
 	/**
 	 * Adds the JSON content type header if no header set.
 	 *
-	 * @param array $headers
-	 * @return array
+	 * @param array<string, string> $headers
+	 * @return array<string, string>
 	 */
 	public function headers_with_json( array $headers = array() ): array {
 		if ( ! array_key_exists( 'Content-Type', $headers ) ) {
