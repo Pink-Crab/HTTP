@@ -91,6 +91,9 @@ class Test_HTTP extends TestCase {
 		$this->expectOutputRegex( '/^(.*?(\bps7_value\b)[^$]*)$/' );
 
 		$http->emit_response( $repsonse );
+
+		// dump(http_response_code());
+
 	}
 
 	/**

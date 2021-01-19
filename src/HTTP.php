@@ -169,11 +169,13 @@ class HTTP {
 		// Append headers.
 		foreach ( $this->headers_with_json( $response->getHeaders() )
 			as $name => $values ) {
-			$response_header = sprintf(
-				'%s: %s',
-				$name,
-				$response->getHeaderLine( $name )
-			);
+
+			// If values are an array, join.
+			$values = is_array( $values )
+				? join( ',', $values )
+				: (string) $values;
+
+			$response_header = sprintf( '%s: %s', $name, $values );
 			header( $response_header, false );
 		}
 
@@ -195,8 +197,13 @@ class HTTP {
 
 		// Append headers.
 		foreach ( $this->headers_with_json( $response->get_headers() )
-			as $name => $value ) {
-			$response_header = sprintf( '%s: %s', $name, $value );
+			as $name => $values ) {
+
+			$values = is_array( $values )
+				? join( ',', $values )
+				: (string) $values;
+
+			$response_header = sprintf( '%s: %s', $name, $values );
 			header( $response_header, false );
 		}
 
