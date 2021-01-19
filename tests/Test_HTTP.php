@@ -130,4 +130,10 @@ class Test_HTTP extends TestCase {
 		$this->assertInstanceOf( UriInterface::class, $request->getUri() );
 		$this->assertEquals( 'google.com', $request->getUri()->getHost() );
 	}
+
+	public function test_emit_throw_if_none_valid_response_type(): void {
+		$this->expectException( InvalidArgumentException::class );
+		$http = new HTTP();
+		$http->emit_response( (object) array( 'not' => 'valid' ) );
+	}
 }
