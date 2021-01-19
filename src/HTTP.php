@@ -178,7 +178,7 @@ class HTTP {
 
 		// Emit body.
 		echo $response->getBody(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		return;
+		return; // phpcs:ignore Squiz.PHP.NonExecutableCode.ReturnNotRequired
 	}
 
 	/**
@@ -202,7 +202,7 @@ class HTTP {
 		// Emit body.
 		$body = $response->get_data();
 		print is_string( $body ) ? $body : wp_json_encode( $body ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		return;
+		return; // phpcs:ignore Squiz.PHP.NonExecutableCode.ReturnNotRequired
 	}
 
 	/**
