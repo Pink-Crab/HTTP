@@ -56,7 +56,7 @@ class Test_HTTP extends TestCase {
 		$repsonse = $http->wp_response( array( 'key' => 'WP_VALUE' ) );
 
 		$this->expectOutputRegex( '/^(.*?(\bWP_VALUE\b)[^$]*)$/' );
-		
+
 		$http->emit_response( $repsonse );
 	}
 
@@ -132,9 +132,34 @@ class Test_HTTP extends TestCase {
 		$this->assertEquals( 'google.com', $request->getUri()->getHost() );
 	}
 
+	/**
+	 * Test throws exception if no repsonse passed to emit_reponse.
+	 *
+	 * @return void
+	 */
 	public function test_emit_throw_if_none_valid_response_type(): void {
 		$this->expectException( InvalidArgumentException::class );
 		$http = new HTTP();
 		$http->emit_response( (object) array( 'not' => 'valid' ) );
+	}
+
+	/**
+	 * Test can produce stream from data which can be cast to JSON.
+	 *
+	 * @return void
+	 */
+	public function test_can_create_stream_from_jsonable_data(): void {
+		$http       = new HTTP();
+		$withArray  = $http->create_stream_with_json( array( 'key' => 'value' ) );
+		$withObject = $http->create_stream_with_json( (object) array( 'key' => 'value' ) );
+		$withString = $http->create_stream_with_json( 'STRING' );
+		$withInt    = $http->create_stream_with_json( 42 );
+		$withFloat  = $http->create_stream_with_json( 4.2 );
+
+		$this->assertEquals( '{"key":"value"}', (string) $withArray );
+		$this->assertEquals( '{"key":"value"}', (string) $withObject );
+		$this->assertEquals( '"STRING"', (string) $withString );
+		$this->assertEquals( 42, (string) $withInt );
+		$this->assertEquals( 4.2, (string) $withFloat );
 	}
 }
