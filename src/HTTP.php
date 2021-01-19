@@ -28,6 +28,7 @@ namespace PinkCrab\HTTP;
 
 use RuntimeException;
 use WP_HTTP_Response;
+use Nyholm\Psr7\Stream;
 use Nyholm\Psr7\Request;
 use Nyholm\Psr7\Response;
 use InvalidArgumentException;
@@ -228,5 +229,15 @@ class HTTP {
 		if ( headers_sent() ) {
 			throw new RuntimeException( 'Headers were already sent. The response could not be emitted!' );
 		}
+	}
+
+	/**
+	 * Wraps any value which can be json encoded in a StreamInterface
+	 *
+	 * @param string|int|float|object|array<mixed> $data
+	 * @return \Psr\Http\Message\StreamInterface
+	 */
+	public function create_stream_with_json( $data ): StreamInterface {
+		return Stream::create( json_encode( $data ) ?: '' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 	}
 }
