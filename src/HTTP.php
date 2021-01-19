@@ -178,7 +178,7 @@ class HTTP {
 
 		// Emit body.
 		echo $response->getBody(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		die();
+		return;
 	}
 
 	/**
@@ -202,14 +202,14 @@ class HTTP {
 		// Emit body.
 		$body = $response->get_data();
 		print is_string( $body ) ? $body : wp_json_encode( $body ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		die();
+		return;
 	}
 
 	/**
 	 * Adds the JSON content type header if no header set.
 	 *
-	 * @param array<string, string> $headers
-	 * @return array<string, string>
+	 * @param array<string, mixed> $headers
+	 * @return array<string, mixed>
 	 */
 	public function headers_with_json( array $headers = array() ): array {
 		if ( ! array_key_exists( 'Content-Type', $headers ) ) {

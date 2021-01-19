@@ -7,10 +7,11 @@
  */
 
 use PinkCrab\HTTP\HTTP;
+use PHPUnit\Framework\Exception;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 // use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
 // use WP_Ajax_UnitTestCase;
@@ -52,10 +53,10 @@ class Test_HTTP extends TestCase {
 	 */
 	function test_can_emit_wp_response(): void {
 		$http     = new HTTP();
-		$repsonse = $http->wp_response( array( 'key' => 'test_VALUE' ) );
+		$repsonse = $http->wp_response( array( 'key' => 'WP_VALUE' ) );
 
-		$this->expectOutputRegex( '/^(.*?(\btest_VALUE\b)[^$]*)$/' );
-
+		$this->expectOutputRegex( '/^(.*?(\bWP_VALUE\b)[^$]*)$/' );
+		
 		$http->emit_response( $repsonse );
 	}
 
