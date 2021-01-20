@@ -30,7 +30,7 @@ use PinkCrab\HTTP\HTTP;
 
 $http = new HTTP();
 
-$response = $http->ps7_response(
+$response = $http->wp_response(
     ['some_key'=>'some_value'], 
     200, 
     ['Content-Type' => 'application/json; charset=UTF-8']
