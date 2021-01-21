@@ -131,7 +131,7 @@ class HTTP_Helper {
 	 * @param string|int|float|object|array<mixed> $value
 	 * @return StreamInterface
 	 */
-	public static function stream_from_scala( $value ): StreamInterface {
+	public static function stream_from_scalar( $value ): StreamInterface {
 		return Stream::create( json_encode( $value ) ?: '' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 	}
 }
