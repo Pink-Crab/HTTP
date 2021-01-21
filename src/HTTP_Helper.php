@@ -63,8 +63,7 @@ class HTTP_Helper {
 	 */
 	public static function global_server_request(): ServerRequestInterface {
 		return static::get_http()
-			->request_from_globals()
-			->withBody( self::stream_from_scala( $_POST ) );  // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			->request_from_globals();
 	}
 
 	/**

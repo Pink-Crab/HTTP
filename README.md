@@ -13,7 +13,7 @@ For more details please visit our docs.
 https://app.gitbook.com/@glynn-quelch/s/pinkcrab/
 
 ## Version ##
-**Release 0.2.2**
+**Release 0.2.3**
 
 ## Why? ##
 Throughout a few of our modules we need to handle HTTP requests and responses. The WP_HTTP_* classes are great, but PS7 complient libraries have a lot more to offer.
@@ -27,10 +27,19 @@ So this small module acts a wrapper for the Nyholm\Psr7 and Nyholm\Psr7Server li
 ```php
 <?php
 use PinkCrab\HTTP\HTTP;
+use PinkCrab\HTTP\HTTP_Helper;
 
 $http = new HTTP();
 
-$response = $http->ps7_response(
+$response = $http->wp_response(
+    ['some_key'=>'some_value'], 
+    200, 
+    ['Content-Type' => 'application/json; charset=UTF-8']
+);
+
+// OR 
+
+$response = HTTP_Helper::wp_response(
     ['some_key'=>'some_value'], 
     200, 
     ['Content-Type' => 'application/json; charset=UTF-8']
@@ -48,10 +57,19 @@ As both have the same signatures, you can interchange at will. Obviously the PS7
 ```php
 <?php
 use PinkCrab\HTTP\HTTP;
+use PinkCrab\HTTP\HTTP_Helper;
 
 $http = new HTTP();
 
 $response = $http->ps7_response(
+    ['some_key'=>'some_value'], 
+    200, 
+    ['Content-Type' => 'application/json; charset=UTF-8']
+);
+
+// OR 
+
+$response = HTTP_Helper::response(
     ['some_key'=>'some_value'], 
     200, 
     ['Content-Type' => 'application/json; charset=UTF-8']
@@ -67,6 +85,7 @@ $http->emit_response($response);
 ```php
 <?php
 use PinkCrab\HTTP\HTTP;
+use PinkCrab\HTTP\HTTP_Helper;
 
 $http = new HTTP();
 
@@ -75,7 +94,48 @@ $request = $http->psr7_request(
     'https://google.com'
 );
 
+// OR 
+
+$response = HTTP_Helper::request(
+    ['some_key'=>'some_value'], 
+    200, 
+    ['Content-Type' => 'application/json; charset=UTF-8']
+);
+
 ```
+
+### Get ServerRequest fromGlobals
+Retruns a populated instance of ServerRequestInterface.
+
+```php
+<?php
+use PinkCrab\HTTP\HTTP;
+use PinkCrab\HTTP\HTTP_Helper;
+
+$server = (new HTTP())->request_from_globals();
+
+// OR 
+
+$server = HTTP_Helper::global_server_request();
+
+```
+
+### Create Stream
+The PSR7 HTTP objects work with streams for the body, you can wrap all scalas values which can cast to JSON in a stream.
+
+```php
+<?php
+use PinkCrab\HTTP\HTTP;
+use PinkCrab\HTTP\HTTP_Helper;
+
+$stream = (new HTTP())->stream_from_scala($data);
+
+// OR 
+
+$stream = HTTP_Helper::stream_from_scala($data);
+
+```
+> The ````(new HTTP())->create_stream_with_json()```` has been marked as deprecated since 0.2.3. use ````(new HTTP())->stream_from_scala()```` in its place.
 
 ## Testing ##
 

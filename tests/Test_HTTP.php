@@ -150,11 +150,11 @@ class Test_HTTP extends TestCase {
 	 */
 	public function test_can_create_stream_from_jsonable_data(): void {
 		$http       = new HTTP();
-		$withArray  = $http->create_stream_with_json( array( 'key' => 'value' ) );
-		$withObject = $http->create_stream_with_json( (object) array( 'key' => 'value' ) );
-		$withString = $http->create_stream_with_json( 'STRING' );
-		$withInt    = $http->create_stream_with_json( 42 );
-		$withFloat  = $http->create_stream_with_json( 4.2 );
+		$withArray  = $http->stream_from_scala( array( 'key' => 'value' ) );
+		$withObject = $http->stream_from_scala( (object) array( 'key' => 'value' ) );
+		$withString = $http->stream_from_scala( 'STRING' );
+		$withInt    = $http->stream_from_scala( 42 );
+		$withFloat  = $http->stream_from_scala( 4.2 );
 
 		$this->assertEquals( '{"key":"value"}', (string) $withArray );
 		$this->assertEquals( '{"key":"value"}', (string) $withObject );
