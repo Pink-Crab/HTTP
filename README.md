@@ -96,10 +96,9 @@ $request = $http->psr7_request(
 
 // OR 
 
-$response = HTTP_Helper::request(
-    ['some_key'=>'some_value'], 
-    200, 
-    ['Content-Type' => 'application/json; charset=UTF-8']
+$request = HTTP_Helper::request(
+    'GET',
+    'https://google.com'
 );
 
 ```
