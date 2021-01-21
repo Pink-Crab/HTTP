@@ -58,7 +58,8 @@ class HTTP {
 			$psr17_factory,
 			$psr17_factory,
 			$psr17_factory
-		) )->fromGlobals();
+		) )->fromGlobals()
+			->withBody( $this->create_stream_with_json( $_POST ) );  // phpcs:ignore WordPress.Security.NonceVerification.Missing
 	}
 
 	/**
@@ -169,11 +170,13 @@ class HTTP {
 		// Append headers.
 		foreach ( $this->headers_with_json( $response->getHeaders() )
 			as $name => $values ) {
-			$response_header = sprintf(
-				'%s: %s',
-				$name,
-				$response->getHeaderLine( $name )
-			);
+
+			// If values are an array, join.
+			$values = is_array( $values )
+				? join( ',', $values )
+				: (string) $values;
+
+			$response_header = sprintf( '%s: %s', $name, $values );
 			header( $response_header, false );
 		}
 
@@ -195,8 +198,13 @@ class HTTP {
 
 		// Append headers.
 		foreach ( $this->headers_with_json( $response->get_headers() )
-			as $name => $value ) {
-			$response_header = sprintf( '%s: %s', $name, $value );
+			as $name => $values ) {
+
+			$values = is_array( $values )
+				? join( ',', $values )
+				: (string) $values;
+
+			$response_header = sprintf( '%s: %s', $name, $values );
 			header( $response_header, false );
 		}
 
@@ -234,10 +242,21 @@ class HTTP {
 	/**
 	 * Wraps any value which can be json encoded in a StreamInterface
 	 *
+	 * @deprecated 0.2.3 Replaced with stream_from_scala()
 	 * @param string|int|float|object|array<mixed> $data
 	 * @return \Psr\Http\Message\StreamInterface
 	 */
 	public function create_stream_with_json( $data ): StreamInterface {
+		return $this->stream_from_scala( $data ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
+	}
+
+	/**
+	 * Wraps any value which can be json encoded in a StreamInterface
+	 *
+	 * @param string|int|float|object|array<mixed> $data
+	 * @return \Psr\Http\Message\StreamInterface
+	 */
+	public function stream_from_scala( $data ): StreamInterface {
 		return Stream::create( json_encode( $data ) ?: '' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 	}
 }
