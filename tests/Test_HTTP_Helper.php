@@ -86,11 +86,11 @@ class Test_HTTP_Helper extends TestCase {
 	 */
 	public function test_can_create_stream_from_jsonable_data(): void {
 
-		$withArray  = HTTP_Helper::stream_from_scala( array( 'key' => 'value' ) );
-		$withObject = HTTP_Helper::stream_from_scala( (object) array( 'key' => 'value' ) );
-		$withString = HTTP_Helper::stream_from_scala( 'STRING' );
-		$withInt    = HTTP_Helper::stream_from_scala( 42 );
-		$withFloat  = HTTP_Helper::stream_from_scala( 4.2 );
+		$withArray  = HTTP_Helper::stream_from_scalar( array( 'key' => 'value' ) );
+		$withObject = HTTP_Helper::stream_from_scalar( (object) array( 'key' => 'value' ) );
+		$withString = HTTP_Helper::stream_from_scalar( 'STRING' );
+		$withInt    = HTTP_Helper::stream_from_scalar( 42 );
+		$withFloat  = HTTP_Helper::stream_from_scalar( 4.2 );
 
 		// Chececk all streams.
 		$this->assertInstanceOf( Stream::class, $withArray );

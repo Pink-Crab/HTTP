@@ -2,7 +2,7 @@
 Wrapper around Nyholm\Psr7 library with a few helper methods and a basic emitter. For use in WordPress during ajax calls.
 
 
-![alt text](https://img.shields.io/badge/Current_Version-0.2.3-yellow.svg?style=flat " ") 
+![alt text](https://img.shields.io/badge/Current_Version-0.2.4-yellow.svg?style=flat " ") 
 [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 
 ![alt text](https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg?style=flat " ") 
@@ -13,7 +13,7 @@ For more details please visit our docs.
 https://app.gitbook.com/@glynn-quelch/s/pinkcrab/
 
 ## Version ##
-**Release 0.2.3**
+**Release 0.2.4**
 
 ## Why? ##
 Throughout a few of our modules we need to handle HTTP requests and responses. The WP_HTTP_* classes are great, but PS7 complient libraries have a lot more to offer.
@@ -27,7 +27,7 @@ So this small module acts a wrapper for the Nyholm\Psr7 and Nyholm\Psr7Server li
 ```php
 <?php
 use PinkCrab\HTTP\HTTP;
-use PinkCrab\HTTP\HTTP_Helper;
+use PinkCrab\HTTP\HTTP;
 
 $http = new HTTP();
 
@@ -57,7 +57,7 @@ As both have the same signatures, you can interchange at will. Obviously the PS7
 ```php
 <?php
 use PinkCrab\HTTP\HTTP;
-use PinkCrab\HTTP\HTTP_Helper;
+use PinkCrab\HTTP\HTTP;
 
 $http = new HTTP();
 
@@ -109,7 +109,7 @@ Retruns a populated instance of ServerRequestInterface.
 
 ```php
 <?php
-use PinkCrab\HTTP\HTTP;
+use PinkCrab\HTTP\HTTP_Helper;
 use PinkCrab\HTTP\HTTP_Helper;
 
 $server = (new HTTP())->request_from_globals();
@@ -121,21 +121,21 @@ $server = HTTP_Helper::global_server_request();
 ```
 
 ### Create Stream
-The PSR7 HTTP objects work with streams for the body, you can wrap all scalas values which can cast to JSON in a stream.
+The PSR7 HTTP objects work with streams for the body, you can wrap all scalars values which can cast to JSON in a stream.
 
 ```php
 <?php
-use PinkCrab\HTTP\HTTP;
+use PinkCrab\HTTP\HTTP_Helper;
 use PinkCrab\HTTP\HTTP_Helper;
 
-$stream = (new HTTP())->stream_from_scala($data);
+$stream = (new HTTP())->stream_from_scalar($data);
 
 // OR 
 
-$stream = HTTP_Helper::stream_from_scala($data);
+$stream = HTTP_Helper::stream_from_scalar($data);
 
 ```
-> The ````(new HTTP())->create_stream_with_json()```` has been marked as deprecated since 0.2.3. use ````(new HTTP())->stream_from_scala()```` in its place.
+> The ````(new HTTP())->create_stream_with_json()```` has been marked as deprecated since 0.2.3. use ````(new HTTP())->stream_from_scalar()```` in its place.
 
 ## Testing ##
 
@@ -180,6 +180,8 @@ $ composer analyse
 http://www.opensource.org/licenses/mit-license.html  
 
 ## Change Log ##
+* 0.2.4 - Typo on scalar (all typed as scala)
+* 0.2.3 - Added in HTTP_Helper class, patched ServerRequest fromGloabls to include the raw $_POST in its body. 
 * 0.2.2 - Added the helper for wrapping data as json in Stream
 * 0.2.1 - Removed die() from end of Emit calls and just reutrned back void. Die to happen at other end
 * 0.2.0 - Moved from Guzzle being injected in cosntructor to using cutom HTTP (pink crab). Plug move to composer format.

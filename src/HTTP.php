@@ -242,12 +242,12 @@ class HTTP {
 	/**
 	 * Wraps any value which can be json encoded in a StreamInterface
 	 *
-	 * @deprecated 0.2.3 Replaced with stream_from_scala()
+	 * @deprecated 0.2.3 Replaced with stream_from_scalar()
 	 * @param string|int|float|object|array<mixed> $data
 	 * @return \Psr\Http\Message\StreamInterface
 	 */
 	public function create_stream_with_json( $data ): StreamInterface {
-		return $this->stream_from_scala( $data ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
+		return $this->stream_from_scalar( $data ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 	}
 
 	/**
@@ -256,7 +256,7 @@ class HTTP {
 	 * @param string|int|float|object|array<mixed> $data
 	 * @return \Psr\Http\Message\StreamInterface
 	 */
-	public function stream_from_scala( $data ): StreamInterface {
+	public function stream_from_scalar( $data ): StreamInterface {
 		return Stream::create( json_encode( $data ) ?: '' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 	}
 }
