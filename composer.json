@@ -45,6 +45,8 @@
     },
     "scripts": {
         "test": "phpunit",
-        "analyse": "vendor/bin/phpstan analyse src -l8"
+        "analyse": "vendor/bin/phpstan analyse src -l8",
+        "build_prod": "composer install --no-dev",
+        "build_dev": "composer install"
     }
 }

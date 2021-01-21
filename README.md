@@ -79,11 +79,28 @@ $request = $http->psr7_request(
 
 ## Testing ##
 
+If you wish to run these tests locally, you will need to create a database table and set your details in /tests/wp-config.php
+
+````php
+    // WARNING WARNING WARNING!
+    // These tests will DROP ALL TABLES in the database with the prefix named below.
+    // DO NOT use a production database or one that is shared with something else.
+    define( 'DB_NAME', getenv( 'WP_DB_NAME' ) ?: 'pc_core_tests' ); //<--
+    define( 'DB_USER', getenv( 'WP_DB_USER' ) ?: 'root' ); //<--
+    define( 'DB_PASSWORD', getenv( 'WP_DB_PASS' ) ?: '' ); //<--
+    define( 'DB_HOST', '127.0.0.1' ); //<--
+    define( 'DB_CHARSET', 'utf8' );
+    define( 'DB_COLLATE', '' );
+````
+
+The test suite uses WP_PHPUNIT so requires a valid instance of WordPress to test with. DO NOT TEST WITH YOUR DEVELOPMENT OR PRODUCTION DATABASE AS ALL DATA IS PURGED AFTER EACH TEST!
+
 ### PHP Unit ###
-If you would like to run the tests for this package, please ensure you add your database details into the test/wp-config.php file before running phpunit.
+
 ````bash
 $ phpunit
 ````
+OR
 ````bash 
 $ composer test
 ````

@@ -51,7 +51,7 @@ class Test_HTTP extends TestCase {
 	 * @runInSeparateProcess
 	 * @return void
 	 */
-	function test_can_emit_wp_response(): void {
+	public function test_can_emit_wp_response(): void {
 		$http     = new HTTP();
 		$repsonse = $http->wp_response( array( 'key' => 'WP_VALUE' ) );
 
@@ -91,9 +91,6 @@ class Test_HTTP extends TestCase {
 		$this->expectOutputRegex( '/^(.*?(\bps7_value\b)[^$]*)$/' );
 
 		$http->emit_response( $repsonse );
-
-		// dump(http_response_code());
-
 	}
 
 	/**
