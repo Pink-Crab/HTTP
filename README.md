@@ -2,7 +2,7 @@
 Wrapper around Nyholm\Psr7 library with a few helper methods and a basic emitter. For use in WordPress during ajax calls.
 
 
-![alt text](https://img.shields.io/badge/Current_Version-0.2.4-yellow.svg?style=flat " ") 
+![alt text](https://img.shields.io/badge/Current_Version-0.2.5-yellow.svg?style=flat " ") 
 [![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 
 ![alt text](https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg?style=flat " ") 
@@ -13,7 +13,7 @@ For more details please visit our docs.
 https://app.gitbook.com/@glynn-quelch/s/pinkcrab/
 
 ## Version ##
-**Release 0.2.4**
+**Release 0.2.5**
 
 ## Why? ##
 Throughout a few of our modules we need to handle HTTP requests and responses. The WP_HTTP_* classes are great, but PS7 complient libraries have a lot more to offer.
@@ -179,6 +179,7 @@ $ composer analyse
 http://www.opensource.org/licenses/mit-license.html  
 
 ## Change Log ##
+* 0.2.4 - Removed object typehint for param in emit_response
 * 0.2.4 - Typo on scalar (all typed as scala)
 * 0.2.3 - Added in HTTP_Helper class, patched ServerRequest fromGloabls to include the raw $_POST in its body. 
 * 0.2.2 - Added the helper for wrapping data as json in Stream
