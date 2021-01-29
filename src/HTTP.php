@@ -131,7 +131,7 @@ class HTTP {
 	 * @return void
 	 * @throws InvalidArgumentException
 	 */
-	public function emit_response( object $response ): void {
+	public function emit_response( $response ): void {
 
 		// Throw if not a valid response.
 		if ( ! $response instanceof ResponseInterface
