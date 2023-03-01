@@ -59,7 +59,7 @@ class HTTP {
 			$psr17_factory,
 			$psr17_factory
 		) )->fromGlobals()
-			->withBody( $this->create_stream_with_json( $_POST ) );  // phpcs:ignore WordPress.Security.NonceVerification.Missing
+			->withBody( $this->stream_from_scalar( $_POST ) );  // phpcs:ignore WordPress.Security.NonceVerification.Missing
 	}
 
 	/**

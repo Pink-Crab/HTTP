@@ -1,4 +1,6 @@
 vendor
 wordpress
 composer.lock
-tests/wp-config.php
+.phpunit.result.cache
+tests/.env
+.vscode
