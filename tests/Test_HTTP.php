@@ -7,6 +7,7 @@
  */
 
 use PinkCrab\HTTP\HTTP;
+use Gin0115\WPUnit_Helpers\Output;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -51,6 +52,37 @@ class Test_HTTP extends TestCase {
 		$http->emit_response( $response );
 	}
 
+	/**
+	 * @testdox It should be possible to emit a WP_Rest_Response with either single or multiple values per header
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 * @return void
+	 */
+	public function test_can_emit_wp_response_with_headers(): void {
+		$http     = new HTTP();
+		$response = $http->wp_response(
+			array( 'key' => 'WP_VALUE' ),
+			200,
+			array(
+				'custom' => array( 'multiple', 'values' ),
+				'other'  => 'single',
+			)
+		);
+
+		// Process in a a buffer to suppress output printing.
+		Output::buffer(
+			function() use ( $http, $response ){
+				$http->emit_response( $response );
+			}
+		);
+
+		$headers = xdebug_get_headers();
+		// Assert that array values are imploded to comma seperated.
+		$this->assertContains( 'custom: multiple,values', $headers );
+		// Assert single values are not imploded.
+		$this->assertContains( 'other: single', $headers );
+	}
+
 	/** @testdox It should be possible to create a PSR7 Response */
 	public function test_can_create_psr7_response(): void {
 		$http     = new HTTP();
@@ -77,6 +109,37 @@ class Test_HTTP extends TestCase {
 		$this->expectOutputRegex( '/^(.*?(\bps7_value\b)[^$]*)$/' );
 
 		$http->emit_response( $response );
+	}
+
+	/**
+	 * @testdox It should be possible to emit a PSR7 Response with either single or multiple values per header
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 * @return void
+	 */
+	public function test_can_emit_psr7_response_with_headers(): void {
+		$http     = new HTTP();
+		$response = $http->psr7_response(
+			array( 'key' => 'WP_VALUE' ),
+			200,
+			array(
+				'custom' => array( 'multiple', 'values' ),
+				'other'  => 'single',
+			)
+		);
+
+		// Process in a a buffer to suppress output printing.
+		Output::buffer(
+			function() use ( $http, $response ){
+				$http->emit_response( $response );
+			}
+		);
+
+		$headers = xdebug_get_headers();
+		// Assert that array values are imploded to comma seperated.
+		$this->assertContains( 'custom: multiple,values', $headers );
+		// Assert single values are not imploded.
+		$this->assertContains( 'other: single', $headers );
 	}
 
 	/**

@@ -204,8 +204,10 @@ class HTTP {
 				? join( ',', $values )
 				: (string) $values;
 
-			$response_header = sprintf( '%s: %s', $name, $values );
-			header( $response_header, false );
+			$header = sprintf( '%s: %s', $name, $values );
+
+			// Set the headers.
+			header( $header, false );
 		}
 
 		// Emit body.

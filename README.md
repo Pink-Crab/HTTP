@@ -149,4 +149,4 @@ http://www.opensource.org/licenses/mit-license.html
 * 0.2.3 - Added in `HTTP_Helper` class, patched `ServerRequest` `fromGloabls` to include the raw $_POST in its body. 
 * 0.2.2 - Added the helper for wrapping data as json in Stream
 * 0.2.1 - Removed die() from end of Emit calls and just returned back void. Die to happen at other end
-* 0.2.0 - Moved from Guzzle being injected in constructor to using cusom HTTP (pink crab). Plug move to composer format.
+* 0.2.0 - Moved from Guzzle being injected in constructor to using custom HTTP (pink crab). Plug move to composer format.
