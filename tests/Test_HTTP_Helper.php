@@ -28,37 +28,37 @@ class Test_HTTP_Helper extends TestCase {
 	}
 
 	/**
-	 * Test that we can creatre a WP_HTTP_Response
+	 * Test that we can create a WP_HTTP_Response
 	 *
 	 * @return void
 	 */
 	public function test_can_create_wp_http_response(): void {
 
-		$repsonse = HTTP_Helper::wp_response( array( 'key' => 'test_VALUE' ), 500 );
+		$response = HTTP_Helper::wp_response( array( 'key' => 'test_VALUE' ), 500 );
 
-		$this->assertInstanceOf( WP_HTTP_Response::class, $repsonse );
-		$this->assertIsArray( $repsonse->get_data() );
-		$this->assertArrayHasKey( 'key', $repsonse->get_data() );
-		$this->assertEquals( 'test_VALUE', $repsonse->get_data()['key'] );
-		$this->assertEquals( 500, $repsonse->get_status() );
+		$this->assertInstanceOf( WP_HTTP_Response::class, $response );
+		$this->assertIsArray( $response->get_data() );
+		$this->assertArrayHasKey( 'key', $response->get_data() );
+		$this->assertEquals( 'test_VALUE', $response->get_data()['key'] );
+		$this->assertEquals( 500, $response->get_status() );
 	}
 
 	/**
-	 * Test that we can creatre a psr7 Response
+	 * Test that we can create a psr7 Response
 	 *
 	 * @return void
 	 */
-	public function test_can_create_psr7_respnse(): void {
+	public function test_can_create_psr7_response(): void {
 
-		$repsonse = HTTP_Helper::response( array( 'key' => 'test_VALUE' ), 500 );
+		$response = HTTP_Helper::response( array( 'key' => 'test_VALUE' ), 500 );
 
-		$body = json_decode( (string) $repsonse->getBody(), true );
+		$body = json_decode( (string) $response->getBody(), true );
 
-		$this->assertInstanceOf( ResponseInterface::class, $repsonse );
+		$this->assertInstanceOf( ResponseInterface::class, $response );
 		$this->assertIsArray( $body );
 		$this->assertArrayHasKey( 'key', $body );
 		$this->assertEquals( 'test_VALUE', $body['key'] );
-		$this->assertEquals( 500, $repsonse->getStatusCode() );
+		$this->assertEquals( 500, $response->getStatusCode() );
 	}
 
 	/**
@@ -92,7 +92,7 @@ class Test_HTTP_Helper extends TestCase {
 		$withInt    = HTTP_Helper::stream_from_scalar( 42 );
 		$withFloat  = HTTP_Helper::stream_from_scalar( 4.2 );
 
-		// Chececk all streams.
+		// Check all streams.
 		$this->assertInstanceOf( Stream::class, $withArray );
 		$this->assertInstanceOf( Stream::class, $withObject );
 		$this->assertInstanceOf( Stream::class, $withString );

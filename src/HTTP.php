@@ -204,8 +204,10 @@ class HTTP {
 				? join( ',', $values )
 				: (string) $values;
 
-			$response_header = sprintf( '%s: %s', $name, $values );
-			header( $response_header, false );
+			$header = sprintf( '%s: %s', $name, $values );
+
+			// Set the headers.
+			header( $header, false );
 		}
 
 		// Emit body.
@@ -237,17 +239,6 @@ class HTTP {
 		if ( headers_sent() ) {
 			throw new RuntimeException( 'Headers were already sent. The response could not be emitted!' );
 		}
-	}
-
-	/**
-	 * Wraps any value which can be json encoded in a StreamInterface
-	 *
-	 * @deprecated 0.2.3 Replaced with stream_from_scalar()
-	 * @param string|int|float|object|array<mixed> $data
-	 * @return \Psr\Http\Message\StreamInterface
-	 */
-	public function create_stream_with_json( $data ): StreamInterface {
-		return $this->stream_from_scalar( $data ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 	}
 
 	/**

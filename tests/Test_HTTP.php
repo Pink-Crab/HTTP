@@ -7,10 +7,9 @@
  */
 
 use PinkCrab\HTTP\HTTP;
-use PHPUnit\Framework\Exception;
+use Gin0115\WPUnit_Helpers\Output;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Message\RequestInterface;
-// use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
@@ -23,74 +22,124 @@ use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 class Test_HTTP extends TestCase {
 
 	/**
-	 * Undocumented variable
-	 *
 	 * @var bool
 	 */
 	protected $preserveGlobalState = false;
 
-	/**
-	 * Test that we can creatre a WP_HTTP_Response
-	 *
-	 * @return void
-	 */
+	/** @testdox It should be possible to create a WP_Rest_Response */
 	public function test_can_create_wp_http_response(): void {
 		$http     = new HTTP();
-		$repsonse = $http->wp_response( array( 'key' => 'test_VALUE' ), 500 );
+		$response = $http->wp_response( array( 'key' => 'test_VALUE' ), 500 );
 
-		$this->assertInstanceOf( WP_HTTP_Response::class, $repsonse );
-		$this->assertIsArray( $repsonse->get_data() );
-		$this->assertArrayHasKey( 'key', $repsonse->get_data() );
-		$this->assertEquals( 'test_VALUE', $repsonse->get_data()['key'] );
-		$this->assertEquals( 500, $repsonse->get_status() );
+		$this->assertInstanceOf( WP_HTTP_Response::class, $response );
+		$this->assertIsArray( $response->get_data() );
+		$this->assertArrayHasKey( 'key', $response->get_data() );
+		$this->assertEquals( 'test_VALUE', $response->get_data()['key'] );
+		$this->assertEquals( 500, $response->get_status() );
 	}
 
 	/**
-	 * Tests that a WP_Response can be generated and emmited.
-	 *
+	 * @testdox It should be possible to emit a WP_Rest_Response
 	 * @runInSeparateProcess
 	 * @return void
 	 */
 	public function test_can_emit_wp_response(): void {
 		$http     = new HTTP();
-		$repsonse = $http->wp_response( array( 'key' => 'WP_VALUE' ) );
+		$response = $http->wp_response( array( 'key' => 'WP_VALUE' ) );
 
 		$this->expectOutputRegex( '/^(.*?(\bWP_VALUE\b)[^$]*)$/' );
 
-		$http->emit_response( $repsonse );
+		$http->emit_response( $response );
 	}
 
 	/**
-	 * Test that we can creatre a psr7 Response
-	 *
+	 * @testdox It should be possible to emit a WP_Rest_Response with either single or multiple values per header
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
 	 * @return void
 	 */
-	public function test_can_create_psr7_respnse(): void {
+	public function test_can_emit_wp_response_with_headers(): void {
 		$http     = new HTTP();
-		$repsonse = $http->psr7_response( array( 'key' => 'test_VALUE' ), 500 );
+		$response = $http->wp_response(
+			array( 'key' => 'WP_VALUE' ),
+			200,
+			array(
+				'custom' => array( 'multiple', 'values' ),
+				'other'  => 'single',
+			)
+		);
 
-		$body = json_decode( (string) $repsonse->getBody(), true );
+		// Process in a a buffer to suppress output printing.
+		Output::buffer(
+			function() use ( $http, $response ){
+				$http->emit_response( $response );
+			}
+		);
 
-		$this->assertInstanceOf( ResponseInterface::class, $repsonse );
+		$headers = xdebug_get_headers();
+		// Assert that array values are imploded to comma seperated.
+		$this->assertContains( 'custom: multiple,values', $headers );
+		// Assert single values are not imploded.
+		$this->assertContains( 'other: single', $headers );
+	}
+
+	/** @testdox It should be possible to create a PSR7 Response */
+	public function test_can_create_psr7_response(): void {
+		$http     = new HTTP();
+		$response = $http->psr7_response( array( 'key' => 'test_VALUE' ), 500 );
+
+		$body = json_decode( (string) $response->getBody(), true );
+
+		$this->assertInstanceOf( ResponseInterface::class, $response );
 		$this->assertIsArray( $body );
 		$this->assertArrayHasKey( 'key', $body );
 		$this->assertEquals( 'test_VALUE', $body['key'] );
-		$this->assertEquals( 500, $repsonse->getStatusCode() );
+		$this->assertEquals( 500, $response->getStatusCode() );
 	}
 
 	/**
-	 * Tests that a ResponseInterface can be generated and emmited.
-	 *
+	 * @testdox It should be possible to emit a PSR7 Response.
 	 * @runInSeparateProcess
 	 * @return void
 	 */
 	function test_can_emit_psr7_response(): void {
 		$http     = new HTTP();
-		$repsonse = $http->psr7_response( array( 'key' => 'ps7_value' ) );
+		$response = $http->psr7_response( array( 'key' => 'ps7_value' ) );
 
 		$this->expectOutputRegex( '/^(.*?(\bps7_value\b)[^$]*)$/' );
 
-		$http->emit_response( $repsonse );
+		$http->emit_response( $response );
+	}
+
+	/**
+	 * @testdox It should be possible to emit a PSR7 Response with either single or multiple values per header
+	 * @runInSeparateProcess
+	 * @preserveGlobalState disabled
+	 * @return void
+	 */
+	public function test_can_emit_psr7_response_with_headers(): void {
+		$http     = new HTTP();
+		$response = $http->psr7_response(
+			array( 'key' => 'WP_VALUE' ),
+			200,
+			array(
+				'custom' => array( 'multiple', 'values' ),
+				'other'  => 'single',
+			)
+		);
+
+		// Process in a a buffer to suppress output printing.
+		Output::buffer(
+			function() use ( $http, $response ){
+				$http->emit_response( $response );
+			}
+		);
+
+		$headers = xdebug_get_headers();
+		// Assert that array values are imploded to comma seperated.
+		$this->assertContains( 'custom: multiple,values', $headers );
+		// Assert single values are not imploded.
+		$this->assertContains( 'other: single', $headers );
 	}
 
 	/**
@@ -133,7 +182,7 @@ class Test_HTTP extends TestCase {
 	}
 
 	/**
-	 * Test throws exception if no repsonse passed to emit_reponse.
+	 * Test throws exception if no response passed to emit_reponse.
 	 *
 	 * @return void
 	 */
@@ -161,5 +210,18 @@ class Test_HTTP extends TestCase {
 		$this->assertEquals( '"STRING"', (string) $withString );
 		$this->assertEquals( 42, (string) $withInt );
 		$this->assertEquals( 4.2, (string) $withFloat );
+	}
+
+	/** @testdox Attempting to emit a response after headers have already been sent, should results in an exception being thrown */
+	public function test_emit_response_throws_exception_if_headers_sent(): void {
+		$this->expectException( RuntimeException::class );
+
+		$http = new HTTP();
+
+		// Emit a response.
+		$http->emit_response( $http->psr7_response( array( 'key' => 'ps7_value' ) ) );
+
+		// Emit another response.
+		$http->emit_response( $http->psr7_response( array( 'key' => 'ps7_value' ) ) );
 	}
 }
