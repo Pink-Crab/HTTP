@@ -2,21 +2,22 @@
 Wrapper around Nyholm\Psr7 library with a few helper methods and a basic emitter. For use in WordPress during ajax calls.
 
 
-![alt text](https://img.shields.io/badge/Current_Version-0.2.6-yellow.svg?style=flat " ") 
-[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
+[![Latest Stable Version](http://poser.pugx.org/pinkcrab/http/v)](https://packagist.org/packages/pinkcrab/http)
+[![Total Downloads](http://poser.pugx.org/pinkcrab/http/downloads)](https://packagist.org/packages/pinkcrab/http)
+[![License](http://poser.pugx.org/pinkcrab/http/license)](https://packagist.org/packages/pinkcrab/http)
+[![PHP Version Require](http://poser.pugx.org/pinkcrab/http/require/php)](https://packagist.org/packages/pinkcrab/http)
+![GitHub contributors](https://img.shields.io/github/contributors/Pink-Crab/HTTP?label=Contributors)
+![GitHub issues](https://img.shields.io/github/issues-raw/Pink-Crab/HTTP)
 
-![alt text](https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg?style=flat " ") 
-![alt text](https://img.shields.io/badge/PHPUnit-PASSING-brightgreen.svg?style=flat " ") 
-![alt text](https://img.shields.io/badge/PHCBF-WP_Extra-brightgreen.svg?style=flat " ") 
+[![WordPress 6.1 Test Suite [PHP7.2-8.1]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_1.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_1.yaml)
+[![codecov](https://codecov.io/gh/Pink-Crab/HTTP/branch/master/graph/badge.svg?token=ZP2DNBV3MT)](https://codecov.io/gh/Pink-Crab/HTTP)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Pink-Crab/HTTP/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Pink-Crab/HTTP/?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/3f2580ac743e2ec54542/maintainability)](https://codeclimate.com/github/Pink-Crab/HTTP/maintainability)
 
-For more details please visit our docs.
-https://app.gitbook.com/@glynn-quelch/s/pinkcrab/
 
-## Version ##
-**Release 0.2.6**
 
 ## Why? ##
-Throughout a few of our modules we need to handle HTTP requests and responses. The WP_HTTP_* classes are great, but PS7 complient libraries have a lot more to offer.
+Throughout a few of our modules we need to handle HTTP requests and responses. The WP_HTTP_* classes are great, but PS7 compliant libraries have a lot more to offer.
 
 So this small module acts a wrapper for the Nyholm\Psr7 and Nyholm\Psr7Server libraries and gives a few helper methods. You can easily create and emit either Responses that extend **WP_HTTP_RESPONSE** or implements **ResponseInterface**
 
@@ -50,7 +51,7 @@ $http->emit_response($response);
 
 ```
 
-As both have the same signatures, you can interchange at will. Obviously the PS7 Repsonse has more functionality to fine tune the response.
+As both have the same signatures, you can interchange at will. Obviously the PS7 Response has more functionality to fine tune the response.
 
 ### Creates a PS7 Response
 
@@ -104,11 +105,11 @@ $request = HTTP_Helper::request(
 ```
 
 ### Get ServerRequest fromGlobals
-Retruns a populated instance of ServerRequestInterface.
+Returns a populated instance of ServerRequestInterface.
 
 ```php
 <?php
-use PinkCrab\HTTP\HTTP_Helper;
+use PinkCrab\HTTP\HTTP;
 use PinkCrab\HTTP\HTTP_Helper;
 
 $server = (new HTTP())->request_from_globals();
@@ -124,7 +125,7 @@ The PSR7 HTTP objects work with streams for the body, you can wrap all scalars v
 
 ```php
 <?php
-use PinkCrab\HTTP\HTTP_Helper;
+use PinkCrab\HTTP\HTTP;
 use PinkCrab\HTTP\HTTP_Helper;
 
 $stream = (new HTTP())->stream_from_scalar($data);
@@ -136,42 +137,6 @@ $stream = HTTP_Helper::stream_from_scalar($data);
 ```
 > The ````(new HTTP())->create_stream_with_json()```` has been marked as deprecated since 0.2.3. use ````(new HTTP())->stream_from_scalar()```` in its place.
 
-## Testing ##
-
-If you wish to run these tests locally, you will need to create a database table and set your details in /tests/wp-config.php
-
-````php
-    // WARNING WARNING WARNING!
-    // These tests will DROP ALL TABLES in the database with the prefix named below.
-    // DO NOT use a production database or one that is shared with something else.
-    define( 'DB_NAME', getenv( 'WP_DB_NAME' ) ?: 'pc_core_tests' ); //<--
-    define( 'DB_USER', getenv( 'WP_DB_USER' ) ?: 'root' ); //<--
-    define( 'DB_PASSWORD', getenv( 'WP_DB_PASS' ) ?: '' ); //<--
-    define( 'DB_HOST', '127.0.0.1' ); //<--
-    define( 'DB_CHARSET', 'utf8' );
-    define( 'DB_COLLATE', '' );
-````
-
-The test suite uses WP_PHPUNIT so requires a valid instance of WordPress to test with. DO NOT TEST WITH YOUR DEVELOPMENT OR PRODUCTION DATABASE AS ALL DATA IS PURGED AFTER EACH TEST!
-
-### PHP Unit ###
-
-````bash
-$ phpunit
-````
-OR
-````bash 
-$ composer test
-````
-
-### PHP Stan ###
-The module comes with a pollyfill for all WP Functions, allowing for the testing of all core files. The current config omits the Dice file as this is not ours. To run the suite call.
-````bash 
-$ vendor/bin/phpstan analyse src/ -l8 
-````
-````bash 
-$ composer analyse
-````
 
 ## License ##
 
@@ -179,10 +144,11 @@ $ composer analyse
 http://www.opensource.org/licenses/mit-license.html  
 
 ## Change Log ##
-* 0.2.6 - 
-* 0.2.5 - Removed object typehint for param in emit_response
+* 1.0.0 - Removed HTTP::create_stream_with_json()
+* 0.2.6 - Readme changes
+* 0.2.5 - Removed object type hint for param in emit_response
 * 0.2.4 - Typo on scalar (all typed as scala)
-* 0.2.3 - Added in HTTP_Helper class, patched ServerRequest fromGloabls to include the raw $_POST in its body. 
+* 0.2.3 - Added in `HTTP_Helper` class, patched `ServerRequest` `fromGloabls` to include the raw $_POST in its body. 
 * 0.2.2 - Added the helper for wrapping data as json in Stream
-* 0.2.1 - Removed die() from end of Emit calls and just reutrned back void. Die to happen at other end
-* 0.2.0 - Moved from Guzzle being injected in cosntructor to using cutom HTTP (pink crab). Plug move to composer format.
+* 0.2.1 - Removed die() from end of Emit calls and just returned back void. Die to happen at other end
+* 0.2.0 - Moved from Guzzle being injected in constructor to using custom HTTP (pink crab). Plug move to composer format.
