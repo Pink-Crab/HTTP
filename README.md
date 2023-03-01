@@ -10,6 +10,7 @@ Wrapper around Nyholm\Psr7 library with a few helper methods and a basic emitter
 ![GitHub issues](https://img.shields.io/github/issues-raw/Pink-Crab/HTTP)
 
 [![WordPress 6.1 Test Suite [PHP7.2-8.1]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_1.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_1.yaml)
+[![codecov](https://codecov.io/gh/Pink-Crab/HTTP/branch/master/graph/badge.svg?token=ZP2DNBV3MT)](https://codecov.io/gh/Pink-Crab/HTTP)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Pink-Crab/HTTP/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Pink-Crab/HTTP/?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3f2580ac743e2ec54542/maintainability)](https://codeclimate.com/github/Pink-Crab/HTTP/maintainability)
 
