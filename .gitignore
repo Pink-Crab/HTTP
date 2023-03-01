@@ -3,3 +3,4 @@ wordpress
 composer.lock
 .phpunit.result.cache
 tests/.env
+.vscode
