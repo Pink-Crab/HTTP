@@ -2,14 +2,16 @@
 Wrapper around Nyholm\Psr7 library with a few helper methods and a basic emitter. For use in WordPress during ajax calls.
 
 
-![alt text](https://img.shields.io/badge/Current_Version-0.2.6-yellow.svg?style=flat " ") 
-[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
-
-![alt text](https://img.shields.io/badge/PHPStan-level%208-brightgreen.svg?style=flat " ") 
-![alt text](https://img.shields.io/badge/PHPUnit-PASSING-brightgreen.svg?style=flat " ") 
-![alt text](https://img.shields.io/badge/PHCBF-WP_Extra-brightgreen.svg?style=flat " ") 
+[![Latest Stable Version](http://poser.pugx.org/pinkcrab/http/v)](https://packagist.org/packages/pinkcrab/http)
+[![Total Downloads](http://poser.pugx.org/pinkcrab/http/downloads)](https://packagist.org/packages/pinkcrab/http)
+[![License](http://poser.pugx.org/pinkcrab/http/license)](https://packagist.org/packages/pinkcrab/http)
+[![PHP Version Require](http://poser.pugx.org/pinkcrab/http/require/php)](https://packagist.org/packages/pinkcrab/http)
+![GitHub contributors](https://img.shields.io/github/contributors/Pink-Crab/HTTP?label=Contributors)
+![GitHub issues](https://img.shields.io/github/issues-raw/Pink-Crab/HTTP)
 
 [![WordPress 6.1 Test Suite [PHP7.2-8.1]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_1.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_1.yaml)
+[![codecov](https://codecov.io/gh/Pink-Crab/HTTP/branch/master/graph/badge.svg?token=ZP2DNBV3MT)](https://codecov.io/gh/Pink-Crab/HTTP)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Pink-Crab/HTTP/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Pink-Crab/HTTP/?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3f2580ac743e2ec54542/maintainability)](https://codeclimate.com/github/Pink-Crab/HTTP/maintainability)
 
 
