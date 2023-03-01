@@ -63,6 +63,6 @@ jobs:
           environment_github: true
         run: composer all
 
-      - name: Codecov
-        run: bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
- 
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+      
