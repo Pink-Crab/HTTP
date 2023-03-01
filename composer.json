@@ -22,10 +22,6 @@
             "PinkCrab\\HTTP\\Tests\\": "tests/"
         }
     },
-    "repositories": [{
-        "url": "https://github.com/Pink-Crab/PHP_Unut_Helpers.git",
-        "type": "git"
-    }],
     "require-dev": {
         "phpunit/phpunit": "^7.0 || ^8.0",
         "phpstan/phpstan": "^1.0",
