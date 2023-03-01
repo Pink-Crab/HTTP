@@ -142,7 +142,7 @@ $stream = HTTP_Helper::stream_from_scalar($data);
 http://www.opensource.org/licenses/mit-license.html  
 
 ## Change Log ##
-
+* 1.0.0 - Removed HTTP::create_stream_with_json()
 * 0.2.6 - Readme changes
 * 0.2.5 - Removed object type hint for param in emit_response
 * 0.2.4 - Typo on scalar (all typed as scala)

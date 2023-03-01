@@ -242,19 +242,6 @@ class HTTP {
 	/**
 	 * Wraps any value which can be json encoded in a StreamInterface
 	 *
-	 * @deprecated 0.2.3 Replaced with stream_from_scalar()
-	 * @param string|int|float|object|array<mixed> $data
-	 * @return \Psr\Http\Message\StreamInterface
-	 */
-	public function create_stream_with_json( $data ): StreamInterface {
-		// Throw deprecation notice.
-		trigger_error( 'Deprecated method called. Please use stream_from_scalar. This function will be removed in later versions.', E_USER_DEPRECATED ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_trigger_error
-		return $this->stream_from_scalar( $data ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
-	}
-
-	/**
-	 * Wraps any value which can be json encoded in a StreamInterface
-	 *
 	 * @param string|int|float|object|array<mixed> $data
 	 * @return \Psr\Http\Message\StreamInterface
 	 */

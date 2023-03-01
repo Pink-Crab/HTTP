@@ -161,27 +161,4 @@ class Test_HTTP extends TestCase {
 		// Emit another response.
 		$http->emit_response( $http->psr7_response( array( 'key' => 'ps7_value' ) ) );
 	}
-
-	/** 
-	 * @testdox HTTP::create_stream_with_json() should throw a deprecated notice
-	 * @runInSeparateProcess
-	 */
-	public function test_create_stream_with_json_throws_deprecation(): void {
-		
-		// If using PHPUnit 9, we need to use the expectDeprecation() method
-        if (version_compare(\PHPUnit\Runner\Version::id(), '9.0.0', '>=')) {
-            $this->expectDeprecation();
-        } else {
-			// $this->expectError();
-            $this->expectException(PHPUnit\Framework\Error\Deprecated::class);
-            // $this->expectException(\TypeError::class);
-        }
-		
-		$http = new HTTP();
-
-		$http->create_stream_with_json( '{"key":"value"}' );
-// // dump($stream);
-// 		$this->assertInstanceOf( StreamInterface::class, $stream );
-// 		$this->assertEquals( '{"key":"value"}', (string) $stream );
-	}
 }
