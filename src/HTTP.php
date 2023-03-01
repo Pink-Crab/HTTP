@@ -247,6 +247,8 @@ class HTTP {
 	 * @return \Psr\Http\Message\StreamInterface
 	 */
 	public function create_stream_with_json( $data ): StreamInterface {
+		// Throw deprecation notice.
+		trigger_error( 'Deprecated method called. Please use stream_from_scalar. This function will be removed in later versions.', E_USER_DEPRECATED );
 		return $this->stream_from_scalar( $data ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
 	}
 
