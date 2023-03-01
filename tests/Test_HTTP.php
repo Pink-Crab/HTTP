@@ -7,12 +7,8 @@
  */
 
 use PinkCrab\HTTP\HTTP;
-use PHPUnit\Framework\Exception;
 use Psr\Http\Message\UriInterface;
-use Psr\Http\Message\StreamInterface;
-// use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
-use PHPUnit\Framework\Error\Deprecated;
 use Psr\Http\Message\ResponseInterface;
 use Yoast\PHPUnitPolyfills\TestCases\TestCase;
 
@@ -177,7 +173,7 @@ class Test_HTTP extends TestCase {
             $this->expectDeprecation();
         } else {
 			// $this->expectError();
-            $this->expectException(Deprecated::class);
+            $this->expectException(PHPUnit\Framework\Error\Deprecated::class);
             // $this->expectException(\TypeError::class);
         }
 		
