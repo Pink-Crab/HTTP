@@ -28,8 +28,7 @@ try {
 
 tests_add_filter(
 	'muplugins_loaded',
-	function() {
-
+	function () {
 	}
 );
 

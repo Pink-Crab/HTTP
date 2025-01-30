@@ -47,6 +47,7 @@ class HTTP {
 	 *
 	 * @uses Psr17Factory::class
 	 * @uses ServerRequestCreator::class
+	 *
 	 * @return ServerRequestInterface
 	 */
 	public function request_from_globals(): ServerRequestInterface {
@@ -66,11 +67,13 @@ class HTTP {
 	 * Wrapper for making a PS7 request.
 	 *
 	 * @uses Nyholm\Psr7::Request()
-	 * @param string $method HTTP method
-	 * @param string|UriInterface $uri URI
-	 * @param array<string, string> $headers Request headers
-	 * @param string|resource|StreamInterface|null $body Request body
-	 * @param string $version Protocol version
+	 * @param string                               $method  HTTP method
+	 * @param string|UriInterface                  $uri     URI
+	 * @param array<string, string>                $headers Request headers
+	 * @param string|resource|StreamInterface|null $body    Request body
+	 * @param string                               $version Protocol version
+	 *
+	 * @return RequestInterface
 	 */
 	public function psr7_request(
 		string $method,
@@ -85,11 +88,12 @@ class HTTP {
 	/**
 	 * Returns a PS7 Response object.
 	 *
-	 * @param int $status
-	 * @param array<string, string> $headers
-	 * @param array<string, string>|string|resource|StreamInterface|null $body
-	 * @param string $version
-	 * @param string $reason
+	 * @param array<string, string>|string|resource|StreamInterface|null $body    The response body.
+	 * @param integer                                                    $status  The response status.
+	 * @param array<string, string>                                      $headers The response headers.
+	 * @param string                                                     $version The response version.
+	 * @param string|null                                                $reason  The response reason.
+	 *
 	 * @return ResponseInterface
 	 */
 	public function psr7_response(
@@ -97,7 +101,7 @@ class HTTP {
 		int $status = 200,
 		array $headers = array(),
 		string $version = '1.1',
-		string $reason = null
+		?string $reason = null
 	): ResponseInterface {
 		// Json Encode if body is array or object.
 		if ( is_array( $body ) || is_object( $body ) ) {
@@ -111,9 +115,10 @@ class HTTP {
 	/**
 	 * Returns a WP_Rest_Response
 	 *
-	 * @param int $status
-	 * @param array<string, string> $headers
-	 * @param mixed $data
+	 * @param array<string, string>|object|string|null $data    The response data.
+	 * @param integer                                  $status  The response status.
+	 * @param array<string, string>                    $headers The response headers.
+	 *
 	 * @return WP_HTTP_Response
 	 */
 	public function wp_response(
@@ -127,9 +132,11 @@ class HTTP {
 	/**
 	 * Emits either a PS7 or WP_HTTP Response.
 	 *
-	 * @param ResponseInterface|WP_HTTP_Response|object $response
+	 * @param ResponseInterface|WP_HTTP_Response|object $response The response to emit.
+	 *
 	 * @return void
-	 * @throws InvalidArgumentException
+	 *
+	 * @throws InvalidArgumentException If response is not a valid type.
 	 */
 	public function emit_response( $response ): void {
 
@@ -172,9 +179,7 @@ class HTTP {
 			as $name => $values ) {
 
 			// If values are an array, join.
-			$values = is_array( $values )
-				? join( ',', $values )
-				: (string) $values;
+			$values = is_array( $values ) ? join( ',', $values ) : (string) $values;
 
 			$response_header = sprintf( '%s: %s', $name, $values );
 			header( $response_header, false );
@@ -199,10 +204,7 @@ class HTTP {
 		// Append headers.
 		foreach ( $this->headers_with_json( $response->get_headers() )
 			as $name => $values ) {
-
-			$values = is_array( $values )
-				? join( ',', $values )
-				: (string) $values;
+			$values = is_array( $values ) ? join( ',', $values ) : (string) $values;
 
 			$header = sprintf( '%s: %s', $name, $values );
 
@@ -244,7 +246,7 @@ class HTTP {
 	/**
 	 * Wraps any value which can be json encoded in a StreamInterface
 	 *
-	 * @param string|int|float|object|array<mixed> $data
+	 * @param string|integer|float|object|array<mixed> $data
 	 * @return \Psr\Http\Message\StreamInterface
 	 */
 	public function stream_from_scalar( $data ): StreamInterface {
