@@ -2,14 +2,20 @@
 Wrapper around Nyholm\Psr7 library with a few helper methods and a basic emitter. For use in WordPress during ajax calls.
 
 
-[![Latest Stable Version](http://poser.pugx.org/pinkcrab/http/v)](https://packagist.org/packages/pinkcrab/http)
-[![Total Downloads](http://poser.pugx.org/pinkcrab/http/downloads)](https://packagist.org/packages/pinkcrab/http)
-[![License](http://poser.pugx.org/pinkcrab/http/license)](https://packagist.org/packages/pinkcrab/http)
-[![PHP Version Require](http://poser.pugx.org/pinkcrab/http/require/php)](https://packagist.org/packages/pinkcrab/http)
+[![Latest Stable Version](https://poser.pugx.org/pinkcrab/http/v)](https://packagist.org/packages/pinkcrab/http)
+[![Total Downloads](https://poser.pugx.org/pinkcrab/http/downloads)](https://packagist.org/packages/pinkcrab/http)
+[![License](https://poser.pugx.org/pinkcrab/http/license)](https://packagist.org/packages/pinkcrab/http)
+[![PHP Version Require](https://poser.pugx.org/pinkcrab/http/require/php)](https://packagist.org/packages/pinkcrab/http)
 ![GitHub contributors](https://img.shields.io/github/contributors/Pink-Crab/HTTP?label=Contributors)
 ![GitHub issues](https://img.shields.io/github/issues-raw/Pink-Crab/HTTP)
 
-[![WordPress 6.1 Test Suite [PHP7.2-8.1]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_1.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_1.yaml)
+[![WordPress 6.7 Test Suite [PHP7.4-8.4]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_7.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_7.yaml)
+[![WordPress 6.6 Test Suite [PHP7.4-8.4]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_6.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_6.yaml)
+[![WordPress 6.5 Test Suite [PHP7.4-8.3]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_5.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_5.yaml)
+[![WordPress 6.4 Test Suite [PHP7.4-8.3]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_4.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_4.yaml)
+[![WordPress 6.3 Test Suite [PHP7.4-8.3]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_3.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_3.yaml)
+[![WordPress 6.2 Test Suite [PHP7.4-8.3]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_2.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_2.yaml)
+
 [![codecov](https://codecov.io/gh/Pink-Crab/HTTP/branch/master/graph/badge.svg?token=ZP2DNBV3MT)](https://codecov.io/gh/Pink-Crab/HTTP)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Pink-Crab/HTTP/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Pink-Crab/HTTP/?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/3f2580ac743e2ec54542/maintainability)](https://codeclimate.com/github/Pink-Crab/HTTP/maintainability)
