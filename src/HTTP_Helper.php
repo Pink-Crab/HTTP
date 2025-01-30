@@ -70,11 +70,13 @@ class HTTP_Helper {
 	 * Wrapper for making a PS7 request.
 	 *
 	 * @uses Nyholm\Psr7::Request()
-	 * @param string $method HTTP method
-	 * @param string|UriInterface $uri URI
-	 * @param array<string, string> $headers Request headers
-	 * @param string|resource|StreamInterface|null $body Request body
-	 * @param string $version Protocol version
+	 * @param string                               $method  HTTP method
+	 * @param string|UriInterface                  $uri     URI
+	 * @param array<string, string>                $headers Request headers
+	 * @param string|resource|StreamInterface|null $body    Request body
+	 * @param string                               $version Protocol version
+	 *
+	 * @return RequestInterface
 	 */
 	public static function request(
 		string $method,
@@ -90,11 +92,12 @@ class HTTP_Helper {
 	/**
 	 * Returns a PS7 Response object.
 	 *
-	 * @param int $status
-	 * @param array<string, string> $headers
+	 * @param integer                                                    $status
+	 * @param array<string, string>                                      $headers
 	 * @param array<string, string>|string|resource|StreamInterface|null $body
-	 * @param string $version
-	 * @param string $reason
+	 * @param string                                                     $version
+	 * @param string|null                                                $reason
+	 *
 	 * @return ResponseInterface
 	 */
 	public static function response(
@@ -102,7 +105,7 @@ class HTTP_Helper {
 		int $status = 200,
 		array $headers = array(),
 		string $version = '1.1',
-		string $reason = null
+		?string $reason = null
 	): ResponseInterface {
 		return static::get_http()
 			->psr7_response( $body, $status, $headers, $version, $reason );
@@ -111,9 +114,9 @@ class HTTP_Helper {
 	/**
 	 * Returns a WP_Rest_Response
 	 *
-	 * @param int $status
+	 * @param integer               $status
 	 * @param array<string, string> $headers
-	 * @param mixed $data
+	 * @param mixed                 $data
 	 * @return WP_HTTP_Response
 	 */
 	public static function wp_response(
@@ -128,7 +131,7 @@ class HTTP_Helper {
 	/**
 	 * Wraps any value which can be json encoded in a StreamInterface
 	 *
-	 * @param string|int|float|object|array<mixed> $value
+	 * @param string|integer|float|object|array<mixed> $value
 	 * @return StreamInterface
 	 */
 	public static function stream_from_scalar( $value ): StreamInterface {
