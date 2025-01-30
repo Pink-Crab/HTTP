@@ -28,10 +28,16 @@ try {
 
 tests_add_filter(
 	'muplugins_loaded',
-	function() {
-
+	function () {
 	}
 );
+
+// if ( ! function_exists( 'xdebug_get_headers' ) ) {
+// 	function xdebug_get_headers() {
+// 		// Return the list of headers set by PHP
+// 		return headers_list();
+// 	}
+// }
 
 // Start up the WP testing environment.
 require getenv( 'WP_PHPUNIT__DIR' ) . '/includes/bootstrap.php';
