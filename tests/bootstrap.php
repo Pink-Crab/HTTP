@@ -23,7 +23,6 @@ try {
 	$dotenv->load();
 } catch ( \Throwable $th ) {
 	// Do nothing if fails to find env as not used in pipeline.
-	die( 'Error loading env' );
 }
 
 tests_add_filter(
