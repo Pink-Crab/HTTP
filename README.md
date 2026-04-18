@@ -9,12 +9,10 @@ Wrapper around Nyholm\Psr7 library with a few helper methods and a basic emitter
 ![GitHub contributors](https://img.shields.io/github/contributors/Pink-Crab/HTTP?label=Contributors)
 ![GitHub issues](https://img.shields.io/github/issues-raw/Pink-Crab/HTTP)
 
-[![WordPress 6.7 Test Suite [PHP7.4-8.4]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_7.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_7.yaml)
-[![WordPress 6.6 Test Suite [PHP7.4-8.4]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_6.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_6.yaml)
-[![WordPress 6.5 Test Suite [PHP7.4-8.3]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_5.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_5.yaml)
-[![WordPress 6.4 Test Suite [PHP7.4-8.3]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_4.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_4.yaml)
-[![WordPress 6.3 Test Suite [PHP7.4-8.3]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_3.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_3.yaml)
-[![WordPress 6.2 Test Suite [PHP7.4-8.3]](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_2.yaml/badge.svg?branch=master)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_2.yaml)
+[![WP 6.6 [PHP8.0-8.4] Tests](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_6.yaml/badge.svg)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_6.yaml)
+[![WP 6.7 [PHP8.0-8.4] Tests](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_7.yaml/badge.svg)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_7.yaml)
+[![WP 6.8 [PHP8.0-8.4] Tests](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_8.yaml/badge.svg)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_8.yaml)
+[![WP 6.9 [PHP8.0-8.4] Tests](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_9.yaml/badge.svg)](https://github.com/Pink-Crab/HTTP/actions/workflows/WP_6_9.yaml)
 
 [![codecov](https://codecov.io/gh/Pink-Crab/HTTP/branch/master/graph/badge.svg?token=ZP2DNBV3MT)](https://codecov.io/gh/Pink-Crab/HTTP)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Pink-Crab/HTTP/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Pink-Crab/HTTP/?branch=master)
@@ -149,7 +147,13 @@ $stream = HTTP_Helper::stream_from_scalar($data);
 ### MIT License ###
 http://www.opensource.org/licenses/mit-license.html  
 
+## Tested Against ##
+* PHP 8.0, 8.1, 8.2, 8.3 & 8.4
+* WP 6.6, 6.7, 6.8 & 6.9
+* MySQL 8.4
+
 ## Change Log ##
+* 1.2.0 - Drop PHP 7.x, require PHP 8.0+. Bump dev deps: phpstan 2.x, phpstan-wordpress 2.x, phpunit 8|9, WP 6.6-6.9 test matrix. Retire the `WP_6_2` / `WP_6_3` / `WP_6_4` / `WP_6_5` workflows and add `WP_6_6` / `WP_6_7` / `WP_6_8` / `WP_6_9` (PHP 8.0-8.4, `mysql:8.4`). Standardise `.scrutinizer.yml`. Add curl-alternative and PSR12 file-header excludes to `phpcs.xml`. Suppress the WP 6.8 `wp_is_block_theme` early-call E_USER_NOTICE in `tests/wp-config.php` under PHPUnit's notice-to-exception conversion. Fill in descriptions on every bare `@param` / `@return` / `@throws` across `src/`. No public API changes.
 * 1.1.0 - Add nullable type hint to the reason phrase in the response and update dev dependencies
 * 1.0.0 - Removed HTTP::create_stream_with_json()
 * 0.2.6 - Readme changes
