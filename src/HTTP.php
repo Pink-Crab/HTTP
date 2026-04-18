@@ -48,7 +48,7 @@ class HTTP {
 	 * @uses Psr17Factory::class
 	 * @uses ServerRequestCreator::class
 	 *
-	 * @return ServerRequestInterface
+	 * @return ServerRequestInterface Server request built from PHP superglobals, with $_POST re-encoded as a JSON body stream.
 	 */
 	public function request_from_globals(): ServerRequestInterface {
 
@@ -73,7 +73,7 @@ class HTTP {
 	 * @param string|resource|StreamInterface|null $body    Request body
 	 * @param string                               $version Protocol version
 	 *
-	 * @return RequestInterface
+	 * @return RequestInterface A Nyholm PSR-7 Request constructed from the given arguments.
 	 */
 	public function psr7_request(
 		string $method,
@@ -94,7 +94,7 @@ class HTTP {
 	 * @param string                                                     $version The response version.
 	 * @param string|null                                                $reason  The response reason.
 	 *
-	 * @return ResponseInterface
+	 * @return ResponseInterface A Nyholm PSR-7 Response; array/object bodies are JSON encoded before being set.
 	 */
 	public function psr7_response(
 		$body = null,
@@ -119,7 +119,7 @@ class HTTP {
 	 * @param integer                                  $status  The response status.
 	 * @param array<string, string>                    $headers The response headers.
 	 *
-	 * @return WP_HTTP_Response
+	 * @return WP_HTTP_Response A WordPress HTTP response object holding the given data, status and headers.
 	 */
 	public function wp_response(
 		$data = null,
@@ -134,7 +134,7 @@ class HTTP {
 	 *
 	 * @param ResponseInterface|WP_HTTP_Response|object $response The response to emit.
 	 *
-	 * @return void
+	 * @return void Sends headers and body to the output buffer; no value is returned.
 	 *
 	 * @throws InvalidArgumentException If response is not a valid type.
 	 */
@@ -157,8 +157,8 @@ class HTTP {
 	/**
 	 * Emits a PSR7 response.
 	 *
-	 * @param ResponseInterface $response
-	 * @return void
+	 * @param ResponseInterface $response PSR-7 response whose status line, headers and body are written to output.
+	 * @return void                       Writes directly to the output buffer; no value is returned.
 	 */
 	public function emit_psr7_response( ResponseInterface $response ): void {
 
@@ -193,8 +193,8 @@ class HTTP {
 	/**
 	 * Emits a WP_HTTP Response.
 	 *
-	 * @param WP_HTTP_Response $response
-	 * @return void
+	 * @param WP_HTTP_Response $response WordPress HTTP response whose headers are sent and whose data is printed (JSON encoded if non-string).
+	 * @return void                      Writes directly to the output buffer; no value is returned.
 	 */
 	public function emit_wp_response( WP_HTTP_Response $response ): void {
 
@@ -221,8 +221,8 @@ class HTTP {
 	/**
 	 * Adds the JSON content type header if no header set.
 	 *
-	 * @param array<string, mixed> $headers
-	 * @return array<string, mixed>
+	 * @param array<string, mixed> $headers Existing header map, keyed by header name.
+	 * @return array<string, mixed>         The same map with a Content-Type of application/json (using the blog charset) added when absent.
 	 */
 	public function headers_with_json( array $headers = array() ): array {
 		if ( ! array_key_exists( 'Content-Type', $headers ) ) {
@@ -234,8 +234,8 @@ class HTTP {
 	/**
 	 * Throws RunTime error if headers sent.
 	 *
-	 * @return void
-	 * @throws RuntimeException
+	 * @return void              Returns nothing when headers have not yet been sent.
+	 * @throws RuntimeException  If PHP reports that response headers have already been dispatched.
 	 */
 	protected function headers_sent(): void {
 		if ( headers_sent() ) {
@@ -246,8 +246,8 @@ class HTTP {
 	/**
 	 * Wraps any value which can be json encoded in a StreamInterface
 	 *
-	 * @param string|integer|float|object|array<mixed> $data
-	 * @return \Psr\Http\Message\StreamInterface
+	 * @param string|integer|float|object|array<mixed> $data Value to serialise into the stream; falsy json_encode results fall back to an empty string.
+	 * @return \Psr\Http\Message\StreamInterface             PSR-7 stream containing the JSON representation of the value.
 	 */
 	public function stream_from_scalar( $data ): StreamInterface {
 		return Stream::create( json_encode( $data ) ?: '' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.json_encode_json_encode
