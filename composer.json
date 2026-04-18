@@ -43,7 +43,7 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit --colors=always --testdox --coverage-clover clover.xml",
-        "coverage": "vendor/bin/phpunit --colors=always --testdox --coverage-html coverage-report",
+        "coverage": "vendor/bin/phpunit --colors=always --testdox --coverage-html coverage-report --coverage-clover clover.xml",
         "analyse": "vendor/bin/phpstan analyse src -l8",
         "sniff": "./vendor/bin/phpcs src/ -v",
         "all": "composer coverage && composer analyse && composer sniff"
